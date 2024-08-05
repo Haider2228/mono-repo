@@ -1,18 +1,21 @@
-# Use an official C++ base image
-FROM gcc:latest
+# Base image
+FROM ubuntu:20.04
 
-# Set the working directory in the container
+# Install dependencies
+RUN apt-get update && apt-get install -y g++ cmake
+
+# Set working directory
 WORKDIR /app
 
-# Copy the C++ source code into the container
-COPY . .
+# Copy source code to container
+COPY . /app
 
-# Install any dependencies if needed (e.g., build-essential)
-RUN apt-get update && apt-get install -y build-essential
-
-# Compile the C++ application
+# Build the C++ application
 RUN g++ -o myapp main.cpp
 
-# Specify the command to run the application
+# Expose the port on which the application will run
+EXPOSE 8080
+
+# Run the application
 CMD ["./myapp"]
 
