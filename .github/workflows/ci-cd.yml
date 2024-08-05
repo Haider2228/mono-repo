@@ -11,23 +11,19 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4  # Update to latest version
 
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
+      uses: docker/setup-buildx-action@v3  # Update to latest version
 
     - name: Build and push Docker image
-      uses: docker/build-push-action@v3
+      uses: docker/build-push-action@v4  # Update to latest version
       with:
         context: .
         file: ./Dockerfile
         push: true
-        tags: ghcr.io/${{ github.repository_owner }}/mycppapp:latest
+        tags: ghcr.io/haider2228/mycppapp:latest  # Ensure repository name is lowercase
 
     - name: Logout from GitHub Container Registry
       run: docker logout ghcr.io
-
-    - name: Run Docker Container and Expose Port
-      run: |
-        docker run -d -p 8080:8080 ghcr.io/${{ github.repository_owner }}/mycppapp:latest
 
